@@ -1,0 +1,83 @@
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.uap.smartinventorytracker</groupId>
+  <artifactId>Smart-Inventory-Tracker</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <organization>
+	   <name>uap-kel8</name>
+  </organization>
+
+  <build>
+		<resources>
+    		<resource>
+      			<directory>src/main/resources</directory>
+    		</resource>
+  		</resources>
+    <plugins>
+		<plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+                <mainClass>com.uap.smartinventorytracker.SmartInventoryTracker</mainClass>
+                <commandlineArgs>
+                    --module-path ${javafx.sdk.path} --add-modules javafx.controls,javafx.fxml
+                </commandlineArgs>
+            </configuration>
+        </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>21</release>
+        </configuration>
+      </plugin>
+    <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <version>3.4.2</version>
+		  <configuration>
+			  <archive>
+				  <manifest>
+					  <addClasspath>true</addClasspath>
+					  <classpathPrefix>lib</classpathPrefix>
+					  <mainClass>com.uap.smartinventorytracker.SmartInventoryTracker</mainClass>
+				  </manifest>
+			  </archive>
+		  </configuration>
+	  </plugin>
+    </plugins>
+  </build>
+<dependencies>
+	 <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.8.1</version> <!-- JUnit 5 version -->
+        <scope>test</scope>
+    </dependency>
+   <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>4.8.0</version>
+        <scope>test</scope>
+    </dependency>
+	<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+	<dependency>
+    	<groupId>org.xerial</groupId>
+    	<artifactId>sqlite-jdbc</artifactId>
+    	<version>3.47.1.0</version>
+	</dependency>
+
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>20.0.2</version> 
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>20.0.2</version>
+    </dependency>
+</dependencies>
+</project>

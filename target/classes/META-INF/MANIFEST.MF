@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 21
+Class-Path: lib/sqlite-jdbc-3.47.1.0.jar lib/javafx-controls-20.0.2.jar 
+ lib/javafx-controls-20.0.2-linux.jar lib/javafx-graphics-20.0.2.jar lib
+ /javafx-graphics-20.0.2-linux.jar lib/javafx-base-20.0.2.jar lib/javafx
+ -base-20.0.2-linux.jar lib/javafx-fxml-20.0.2.jar lib/javafx-fxml-20.0.
+ 2-linux.jar
+Main-Class: com.uap.smartinventorytracker.SmartInventoryTracker
+Created-By: Maven Integration for Eclipse
+
