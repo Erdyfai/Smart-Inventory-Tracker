@@ -52,31 +52,26 @@ public class ProductRepositoryTest {
             assertEquals(10, rs.getInt("quantity"));
             assertEquals("2025-12-31", rs.getString("expiry_date"));
         }
-
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute("DELETE FROM Product WHERE name = 'Laptop'");
-        }
     }
-
     @Test
-    void testListProducts() throws SQLException {
+    void testListProduct() throws SQLException {
         try (Statement stmt = connection.createStatement()) {
-            stmt.execute("INSERT INTO ProductType (name) VALUES ('Electronics')");
-            stmt.execute("INSERT INTO Product (name, quantity, expiry_date, type_id) VALUES ('Laptop', 10, '2025-12-31', 1)");
-            stmt.execute("INSERT INTO Product (name, quantity, expiry_date, type_id) VALUES ('Smartphone', 20, '2025-06-30', 1)");
-        }
+            stmt.execute("INSERT INTO ProductType (id, name) VALUES (1, 'Furniture')");
 
-        try (var stmt = connection.prepareStatement("SELECT COUNT(*) FROM Product")) {
-            try (var rs = stmt.executeQuery()) {
-                assertTrue(rs.next());
-                assertEquals(2, rs.getInt(1), "There should be 2 products in the database");
+            try (PreparedStatement pstmt = connection.prepareStatement(
+                    "INSERT INTO Product (id, name, quantity, expiry_date, type_id) VALUES (?, ?, ?, ?, ?)")) {
+                pstmt.setInt(1, 1); // ID
+                pstmt.setString(2, "Chair"); // Name
+                pstmt.setInt(3, 10); // Quantity
+                pstmt.setString(4, "2024-12-31"); // Expiry Date
+                pstmt.setInt(5, 1); // Type ID
+                pstmt.executeUpdate();
             }
         }
 
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute("DELETE FROM Product WHERE name IN ('Laptop', 'Smartphone')");
-            stmt.execute("DELETE FROM ProductType WHERE name = 'Electronics'");
-        }
+        String result = productRepository.listProducts();
+
+        assertEquals("ID: 1, Name: Chair, Quantity: 10, Expiry Date: 2024-12-31, Type: Furniture", result);
     }
 
 

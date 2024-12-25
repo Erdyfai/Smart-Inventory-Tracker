@@ -41,9 +41,11 @@ public class ProductRepository {
      * Lists all products from the database, including their type information.
      * Joins the Product table with the ProductType table to fetch type names.
      *
-     * @throws SQLException if a database access error occurs
+     * @return A string representation of all products, including type information.
+     * @throws SQLException if a database access error occurs.
      */
-    public void listProducts() throws SQLException {
+    public String listProducts() throws SQLException {
+        StringBuilder result = new StringBuilder();
         String sql = "SELECT p.id, p.name, p.quantity, p.expiry_date, t.name AS type_name " +
                      "FROM Product p JOIN ProductType t ON p.type_id = t.id";
 
@@ -51,13 +53,15 @@ public class ProductRepository {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("id") +
-                                   ", Name: " + rs.getString("name") +
-                                   ", Quantity: " + rs.getInt("quantity") +
-                                   ", Expiry Date: " + rs.getString("expiry_date") +
-                                   ", Type: " + rs.getString("type_name"));
+                result.append("ID: ").append(rs.getInt("id"))
+                      .append(", Name: ").append(rs.getString("name"))
+                      .append(", Quantity: ").append(rs.getInt("quantity"))
+                      .append(", Expiry Date: ").append(rs.getString("expiry_date"))
+                      .append(", Type: ").append(rs.getString("type_name"))
+                      .append(System.lineSeparator());
             }
         }
+        return result.toString().trim();
     }
 
     /**
