@@ -5,14 +5,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.uap.smartinventorytracker.database.Database;
+import com.uap.smartinventorytracker.model.ProductType;
 
 /**
  * Repository class for managing product types in the inventory.
  * Provides methods to add, delete, update, and list all product types.
  */
 public class ProductTypeRepository {
+	
+	/**
+	 * Retrieves a list of all product types from the database.
+	 * 
+	 * @return a list of ProductType objects or an empty list if no product types are found
+	 * @throws SQLException if a database access error occurs
+	 */
+	public List<ProductType> getAllProductTypes() throws SQLException {
+	    List<ProductType> productTypes = new ArrayList<>();
+	    String sql = "SELECT id, name FROM ProductType";
+
+	    try (Connection conn = Database.connect();
+	         Statement stmt = conn.createStatement();
+	         ResultSet rs = stmt.executeQuery(sql)) {
+	        while (rs.next()) {
+	            int id = rs.getInt("id");
+	            String name = rs.getString("name");
+	            ProductType productType = new ProductType(id, name);
+	            productTypes.add(productType);
+	        }
+	    }
+
+	    return productTypes;  // Return an empty list if no product types found
+	}
+
 
     /**
      * Adds a new product type to the database.

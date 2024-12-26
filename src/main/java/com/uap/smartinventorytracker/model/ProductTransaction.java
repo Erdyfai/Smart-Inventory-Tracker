@@ -2,6 +2,8 @@ package com.uap.smartinventorytracker.model;
 
 import java.time.LocalDateTime;
 
+import com.uap.smartinventorytracker.util.DateUtil;
+
 public class ProductTransaction {
     private int id;
     private int productId;
@@ -11,8 +13,7 @@ public class ProductTransaction {
     
     public ProductTransaction() {}
 
-    public ProductTransaction(int id, int productId, String transactionType, int quantity, LocalDateTime transactionDate) {
-        this.id = id;
+    public ProductTransaction(int productId, String transactionType, int quantity, LocalDateTime transactionDate) {
         this.productId = productId;
         this.transactionType = transactionType;
         this.quantity = quantity;
@@ -37,7 +38,11 @@ public class ProductTransaction {
                 ", productId=" + productId +
                 ", transactionType='" + transactionType + '\'' +
                 ", quantity=" + quantity +
-                ", transactionDate=" + transactionDate +
+                ", transactionDate=" + DateUtil.formatDateTime(transactionDate) + // Memformat tanggal dan waktu
                 '}';
+    }
+
+    public String getFormattedTransactionDate() {
+        return DateUtil.formatDateTime(transactionDate); // Menggunakan DateUtil untuk format yang konsisten
     }
 }

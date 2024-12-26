@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.sql.SQLException;
 
 public class ProductRepositoryTest {
@@ -42,7 +43,7 @@ public class ProductRepositoryTest {
             stmt.execute("INSERT INTO ProductType (name) VALUES ('Electronics')");
         }
 
-        productRepository.addProduct("Laptop", 10, "2025-12-31", 1);
+        productRepository.addProduct("Laptop", 10, LocalDate.now(), 1);
 
         String sql = "SELECT * FROM Product WHERE name = 'Laptop'";
         try (var stmt = connection.prepareStatement(sql);
@@ -98,7 +99,7 @@ public class ProductRepositoryTest {
             stmt.execute("INSERT INTO Product (id, name, quantity, expiry_date, type_id) VALUES (1, 'Laptop', 10, '2025-12-31', 1)");
         }
 
-        productRepository.updateProduct(1, "Laptop Pro", 15, "2026-01-01", 1);
+        productRepository.updateProduct(1, "Laptop Pro", 15, LocalDate.now(), 1);
 
         String sql = "SELECT * FROM Product WHERE id = 1";
         try (PreparedStatement stmt = connection.prepareStatement(sql);

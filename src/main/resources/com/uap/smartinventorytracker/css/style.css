@@ -1,0 +1,134 @@
+/* Mendefinisikan warna dan nilai untuk digunakan di seluruh aplikasi */
+.root {
+    -fx-background-color: #fff; /* --app-bg */
+}
+
+.sidebar {
+    -fx-background-color: #f3f6fd; /* --sidebar */
+}
+
+.app-content-secondary {
+    -fx-background-color: #f3f6fd; /* --app-content-secondary-color */
+}
+
+.app-content-main {
+    -fx-text-fill: #1f1c2e; /* --app-content-main-color */
+}
+
+.sidebar-link {
+    -fx-text-fill: #1f1c2e; /* --sidebar-link */
+}
+
+.sidebar-hover-link {
+    -fx-text-fill: rgba(195, 207, 244, 0.5); /* --sidebar-hover-link */
+}
+
+.sidebar-active-link {
+    -fx-text-fill: rgba(195, 207, 244, 1); /* --sidebar-active-link */
+}
+
+.sidebar-main {
+    -fx-text-fill: #1f1c2e; /* --sidebar-main-color */
+}
+
+.filter-shadow {
+    -fx-effect: dropshadow(gaussian, rgba(99, 99, 99, 0.2), 8, 0, 0, 2); /* --filter-shadow */
+}
+
+/* File: styles.css */
+.title-label {
+    -fx-font-size: 32px; /* Ukuran font */
+    -fx-font-weight: bold; /* Membuat teks tebal */
+    -fx-text-fill: #2a2a2a; /* Warna teks */
+    -fx-padding: 10px; /* Jarak dalam */
+    -fx-alignment: center; /* Pusatkan teks dalam Label */
+    -fx-font-family: "Arial, Helvetica, sans-serif"; /* Gaya font */
+}
+
+.total-label {
+    -fx-font-size: 24px; /* Ukuran font */
+    -fx-font-weight: bold; /* Membuat teks tebal */
+    -fx-text-fill: #2a2a2a; /* Warna teks */
+    -fx-padding: 10px; /* Jarak dalam */
+    -fx-alignment: center; /* Pusatkan teks dalam Label */
+    -fx-font-family: "Arial, Helvetica, sans-serif"; /* Gaya font */
+}
+
+.card-label {
+    -fx-font-size: 14px; /* Ukuran font */
+    -fx-text-fill: #2a2a2a; /* Warna teks */
+    -fx-padding: 10px; /* Jarak dalam */
+    -fx-alignment: center; /* Pusatkan teks dalam Label */
+    -fx-font-family: "Arial, Helvetica, sans-serif"; /* Gaya font */
+}
+
+/* Button Style */
+.button {
+    -fx-background-color: transparent; /* Warna abu-abu untuk tombol */
+    -fx-text-fill: black; /* Teks tombol berwarna hitam */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 0px; /* Membuat tombol berbentuk kotak */
+    -fx-border-color: transparent; /* Border transparan saat normal */
+    -fx-border-width: 2px; /* Mengatur ketebalan border */
+    transition: all 0.3s ease; /* Menambahkan transisi halus */
+}
+
+.shadow{
+    -fx-background-color: #f3f6fd; /* Warna latar belakang HBox */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 5, 5);
+    -fx-background-radius: 15; /* Membulatkan sudut HBox */
+    -fx-padding: 15px;         /* Jarak dalam konten HBox */
+    -fx-border-radius: 15;    /* Membulatkan sudut tepi jika ada border */
+}
+
+/* Efek default untuk semua tombol */
+.button {
+    -fx-background-color: transparent; /* Warna default */
+    -fx-text-fill: black; /* Warna teks */
+    -fx-font-size: 14px; /* Ukuran font */
+}
+
+/* Efek tombol default saat ditekan */
+.button:pressed {
+    -fx-background-color: #d3d6de; /* Mengubah warna tombol menjadi lebih gelap saat ditekan */
+    -fx-border-color: #555; /* Border dengan warna lebih tegas */
+    -fx-border-width: 2px 0px 2px 4px; /* Border kiri lebih tebal */
+}
+
+/* Efek tombol default saat hover */
+.button:hover {
+    -fx-background-color: #f3f6fd; /* Warna lebih terang saat hover */
+    -fx-border-color: #d3d6de; /* Warna border saat hover */
+    -fx-border-width: 2px 0px 2px 2px; /* Border kiri ketebalan standar */
+}
+
+/* Efek tombol default saat fokus */
+.button:focused {
+    -fx-background-color: #f3f6fd; /* Warna terang saat fokus */
+    -fx-border-color: #d3d6de; /* Border lebih tegas */
+    -fx-border-width: 2px 0px 2px 4px; /* Border kiri */
+}
+
+/* Gaya untuk tombol dengan sudut membulat */
+.rounded-button {
+    -fx-background-color: #D3D3D3; /* Warna default tombol membulat */
+    -fx-text-fill: black; /* Warna teks */
+    -fx-padding: 10px 20px; /* Jarak dalam */
+    -fx-font-size: 14px; /* Ukuran font */
+    -fx-background-radius: 5px; /* Membulatkan ujung tombol */
+    -fx-border-radius: 5px; /* Membulatkan tepi tombol */
+    -fx-border-color: transparent; /* Tanpa garis tepi */
+    -fx-cursor: hand; /* Ubah kursor menjadi tangan saat hover */
+}
+
+/* Efek hover untuk tombol dengan sudut membulat */
+.rounded-button:hover {
+    -fx-background-color: #bbb; /* Warna lebih terang saat hover */
+}
+
+/* Efek klik untuk tombol dengan sudut membulat (tidak berubah warna) */
+.rounded-button:pressed {
+    -fx-background-color: #D3D3D3; /* Tetap sama seperti default */
+}
+

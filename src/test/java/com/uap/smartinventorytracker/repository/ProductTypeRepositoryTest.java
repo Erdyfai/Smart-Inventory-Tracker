@@ -21,7 +21,7 @@ class ProductTypeRepositoryTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        connection = Database.connect();  // Use your Database class for connection
+        connection = Database.connect(); 
         repository = new ProductTypeRepository();
     }
 

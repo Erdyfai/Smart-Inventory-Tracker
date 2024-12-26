@@ -2,17 +2,26 @@ package com.uap.smartinventorytracker.model;
 
 import java.time.LocalDate;
 
+import com.uap.smartinventorytracker.util.DateUtil;
+
 public class Product {
     private int id;
     private String name;
     private int quantity;
     private LocalDate expiryDate; // Menggunakan LocalDate untuk tanggal
     private int typeId;
-    
+
     public Product() {}
 
+    public Product(String name, int quantity, LocalDate expiryDate, int typeId) {
+        this.name = name;
+        this.quantity = quantity;
+        this.expiryDate = expiryDate;
+        this.typeId = typeId;
+    }
+    
     public Product(int id, String name, int quantity, LocalDate expiryDate, int typeId) {
-        this.id = id;
+    	this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.expiryDate = expiryDate;
@@ -29,6 +38,16 @@ public class Product {
     public void setExpiryDate(LocalDate expiryDate) { this.expiryDate = expiryDate; }
     public int getTypeId() { return typeId; }
     public void setTypeId(int typeId) { this.typeId = typeId; }
+
+    // Method untuk mengembalikan expiryDate dalam format String sesuai dengan database
+    public String getFormattedExpiryDate() {
+        return DateUtil.format(expiryDate); // Format LocalDate ke String menggunakan DateUtil
+    }
+
+    // Method untuk set expiryDate dari String yang didapat dari database
+    public void setExpiryDateFromString(String expiryDateString) {
+        this.expiryDate = DateUtil.parse(expiryDateString); // Parse String ke LocalDate menggunakan DateUtil
+    }
 
     @Override
     public String toString() {
