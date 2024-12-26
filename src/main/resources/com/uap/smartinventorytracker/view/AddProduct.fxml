@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uap.smartinventorytracker.controller.AddProductController">
+    <Label text="Nama Produk:" layoutX="14.0" layoutY="20.0" />
+    <TextField fx:id="productNameField" layoutX="100.0" layoutY="16.0" />
+
+    <Label text="Kuantitas:" layoutX="14.0" layoutY="60.0" />
+    <TextField fx:id="quantityField" layoutX="100.0" layoutY="56.0" />
+
+    <Label text="Kategori:" layoutX="14.0" layoutY="100.0" />
+    <ComboBox fx:id="categoryComboBox" layoutX="100.0" layoutY="96.0" />
+
+    <Label text="Tanggal Kedaluwarsa:" layoutX="14.0" layoutY="140.0" />
+    <DatePicker fx:id="expiryDatePicker" layoutX="100.0" layoutY="136.0" />
+
+    <Button text="Tambah Produk" layoutX="100.0" layoutY="180.0" onAction="#onAddProductClick" />
+</AnchorPane>
