@@ -53,7 +53,7 @@ Kontribusi sangat diterima! Jika Anda ingin berkontribusi:
 3. Kirimkan pull request.
 
 ## Lisensi
-Proyek ini dilisensikan di bawah lisensi **MIT**. Silakan lihat file `LICENSE` untuk informasi lebih lanjut.
+Proyek ini dilisensikan di bawah lisensi **MIT**. Silakan lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
 
 ## Kontak
 Jika Anda memiliki pertanyaan atau saran, jangan ragu untuk menghubungi kami di:
