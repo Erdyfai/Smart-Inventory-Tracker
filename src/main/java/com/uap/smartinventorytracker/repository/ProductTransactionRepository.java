@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.uap.smartinventorytracker.database.Database;
 import com.uap.smartinventorytracker.util.DateUtil;
 
@@ -12,6 +15,67 @@ import com.uap.smartinventorytracker.util.DateUtil;
  * Provides methods to add and list transactions.
  */
 public class ProductTransactionRepository {
+	
+	 public int getQuantityByWeek(String transactionType, int weekNumber) {
+	        int totalQuantity = 0;
+	        
+	        String sql = "SELECT SUM(quantity) FROM ProductTransaction " +
+	                     "WHERE transaction_type = ? AND strftime('%W', transaction_date) = ?";
+
+	        try (Connection connection = Database.connect();
+	             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	            statement.setString(1, transactionType);
+	            statement.setString(2, String.format("%02d", weekNumber));  // Format minggu menjadi dua digit, misalnya "01" untuk minggu pertama
+	            
+	            ResultSet resultSet = statement.executeQuery();
+
+	            if (resultSet.next()) {
+	                totalQuantity = resultSet.getInt(1);  
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return totalQuantity;
+	    }
+	
+	  public int getQuantityByDayOfWeek(String transactionType, String dayOfWeek) {
+	        int totalQuantity = 0;
+	        
+	        String sql = "SELECT SUM(quantity) FROM ProductTransaction " +
+	                     "WHERE transaction_type = ? AND strftime('%w', transaction_date) = ?";
+
+	        try (Connection connection = Database.connect();
+	             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	            // Menentukan parameter transaksi dan hari dalam minggu
+	            statement.setString(1, transactionType);
+	            statement.setString(2, getDayOfWeekNumber(dayOfWeek));  // Mengonversi nama hari menjadi nomor hari dalam minggu
+	            
+	            ResultSet resultSet = statement.executeQuery();
+
+	            if (resultSet.next()) {
+	                totalQuantity = resultSet.getInt(1);  // Mengambil hasil total quantity
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return totalQuantity;
+	    }
+	  private String getDayOfWeekNumber(String dayOfWeek) {
+	        Map<String, String> daysOfWeekMap = new HashMap<>();
+	        daysOfWeekMap.put("Sunday", "0");
+	        daysOfWeekMap.put("Monday", "1");
+	        daysOfWeekMap.put("Tuesday", "2");
+	        daysOfWeekMap.put("Wednesday", "3");
+	        daysOfWeekMap.put("Thursday", "4");
+	        daysOfWeekMap.put("Friday", "5");
+	        daysOfWeekMap.put("Saturday", "6");
+
+	        return daysOfWeekMap.getOrDefault(dayOfWeek, "0");
+	    }
 
     public int getTotalQuantityByTransactionType(String transactionType) {
         String query = "SELECT SUM(quantity) AS total FROM ProductTransaction WHERE transaction_type = ?";

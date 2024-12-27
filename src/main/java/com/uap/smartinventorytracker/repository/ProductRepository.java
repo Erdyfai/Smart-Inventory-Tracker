@@ -17,6 +17,28 @@ import com.uap.smartinventorytracker.util.DateUtil;
  * Provides methods to add new products, list all existing products, update, and delete products.
  */
 public class ProductRepository {
+	
+	public int getProductCountByType(int productTypeId) {
+        int productCount = 0;
+        
+        String sql = "SELECT COUNT(*) FROM Product WHERE type_id = ?";
+
+        try (Connection connection = Database.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, productTypeId);  // ID dari tipe produk
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                productCount = resultSet.getInt(1);  // Mengambil hasil jumlah produk
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productCount;
+    }
 
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();

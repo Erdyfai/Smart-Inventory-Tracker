@@ -10,9 +10,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.util.List;
 
-import com.uap.smartinventorytracker.model.Product;
 import com.uap.smartinventorytracker.model.ProductType;
 import com.uap.smartinventorytracker.repository.ProductRepository;
 import com.uap.smartinventorytracker.repository.ProductTransactionRepository;
@@ -41,21 +42,17 @@ public class DashboardController {
     @FXML
     private Label totalProduk;
     
-    
     private final ProductRepository productRepo = new ProductRepository();
     private final ProductTransactionRepository productTransactionRepo = new ProductTransactionRepository();
-
-    // Contoh data dummy (ini akan diganti dengan data dari database)
-    private int totalBarang = 150; // Total barang di inventaris
-    private int barangMasukHariIni = 25; // Barang masuk hari ini
-    private int barangKeluarHariIni = 20; // Barang keluar hari ini
+    private final ProductTypeRepository productTypeRepo = new ProductTypeRepository();
 
     @FXML
     public void initialize() {
+        // Format number
         NumberFormat numberFormat = NumberFormat.getInstance();
         totalProduk.setText(numberFormat.format(productRepo.getTotalProductQuantity()));
         barangMasuk.setText(numberFormat.format(productTransactionRepo.getTotalQuantityByTransactionType("ADD")));
-        barangKeluar.setText(numberFormat.format(barangKeluarHariIni));
+        barangKeluar.setText(numberFormat.format(productTransactionRepo.getTotalQuantityByTransactionType("REMOVE")));
 
         pieChart.setData(generatePieChartData());
 
@@ -65,31 +62,46 @@ public class DashboardController {
     }
 
     private ObservableList<PieChart.Data> generatePieChartData() {
-        return FXCollections.observableArrayList(
-            new PieChart.Data("Makanan", 50),
-            new PieChart.Data("Minuman", 30),
-            new PieChart.Data("Sembako", 70)
-        );
+        ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+        List<ProductType> productTypes;
+		try {
+			productTypes = productTypeRepo.getAllProductTypes();
+		    for (ProductType type : productTypes) {
+	            int productCount = productRepo.getProductCountByType(type.getId());
+	            pieData.add(new PieChart.Data(type.getName(), productCount));
+	        }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        return pieData;
     }
 
     private void populateBarChart() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Barang Masuk Minggu Ini");
-        series.getData().add(new XYChart.Data<>("Senin", 10));
-        series.getData().add(new XYChart.Data<>("Selasa", 15));
-        series.getData().add(new XYChart.Data<>("Rabu", 20));
-        series.getData().add(new XYChart.Data<>("Kamis", 25));
-        series.getData().add(new XYChart.Data<>("Jumat", 30));
+        
+        // Fetch daily incoming product data for the week (example for Monday to Friday)
+        series.getData().add(new XYChart.Data<>("Senin", productTransactionRepo.getQuantityByDayOfWeek("ADD", "Monday")));
+        series.getData().add(new XYChart.Data<>("Selasa", productTransactionRepo.getQuantityByDayOfWeek("ADD", "Tuesday")));
+        series.getData().add(new XYChart.Data<>("Rabu", productTransactionRepo.getQuantityByDayOfWeek("ADD", "Wednesday")));
+        series.getData().add(new XYChart.Data<>("Kamis", productTransactionRepo.getQuantityByDayOfWeek("ADD", "Thursday")));
+        series.getData().add(new XYChart.Data<>("Jumat", productTransactionRepo.getQuantityByDayOfWeek("ADD", "Friday")));
+        
         barChart.getData().add(series);
     }
 
     private void populateLineChart() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Barang Keluar Bulan Ini");
-        series.getData().add(new XYChart.Data<>("Week 1", 50));
-        series.getData().add(new XYChart.Data<>("Week 2", 70));
-        series.getData().add(new XYChart.Data<>("Week 3", 60));
-        series.getData().add(new XYChart.Data<>("Week 4", 80));
+
+        // Fetch weekly outgoing product data for the month
+        series.getData().add(new XYChart.Data<>("Week 1", productTransactionRepo.getQuantityByWeek("REMOVE", 1)));
+        series.getData().add(new XYChart.Data<>("Week 2", productTransactionRepo.getQuantityByWeek("REMOVE", 2)));
+        series.getData().add(new XYChart.Data<>("Week 3", productTransactionRepo.getQuantityByWeek("REMOVE", 3)));
+        series.getData().add(new XYChart.Data<>("Week 4", productTransactionRepo.getQuantityByWeek("REMOVE", 4)));
+
         lineChart.getData().add(series);
     }
 }

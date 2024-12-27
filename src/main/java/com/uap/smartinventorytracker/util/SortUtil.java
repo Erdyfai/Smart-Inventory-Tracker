@@ -60,16 +60,13 @@ public class SortUtil {
         ObservableList<Product> sortedData = FXCollections.observableArrayList(productData);
 
         switch (quantityFilter) {
-            case "Min Quantity":
-                // Mengurutkan produk berdasarkan quantity (dari yang paling sedikit)
+            case "Low Stock":
                 sortedData.sort(Comparator.comparing(Product::getQuantity));
                 break;
-            case "Max Quantity":
-                // Mengurutkan produk berdasarkan quantity (dari yang paling banyak)
+            case "In Stock":
                 sortedData.sort(Comparator.comparing(Product::getQuantity).reversed());
                 break;
             default:
-                // Jika "All", kembalikan ke data semula
                 sortedData = FXCollections.observableArrayList(productData);
                 break;
         }
@@ -77,7 +74,6 @@ public class SortUtil {
         table.setItems(sortedData);
     }
 
-    // Method untuk filter berdasarkan expiry date (termasuk expired paling dekat dan paling jauh)
     public static void filterByExpiry(ObservableList<Product> productData, TableView<Product> table, String expiryFilter) {
         if (productData == null || productData.isEmpty()) {
             return;
@@ -87,15 +83,12 @@ public class SortUtil {
 
         switch (expiryFilter) {
             case "Expired Closest":
-                // Mengurutkan produk berdasarkan expiryDate (dari yang paling mendekati)
                 sortedData.sort(Comparator.comparing(Product::getExpiryDate));
                 break;
             case "Expired Farthest":
-                // Mengurutkan produk berdasarkan expiryDate (dari yang paling lama)
                 sortedData.sort(Comparator.comparing(Product::getExpiryDate).reversed());
                 break;
             default:
-                // Jika "All", kembalikan ke data semula
                 sortedData = FXCollections.observableArrayList(productData);
                 break;
         }
