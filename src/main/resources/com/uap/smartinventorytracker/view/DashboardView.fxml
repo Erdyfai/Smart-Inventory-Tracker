@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="dashboard_fxml" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="910.0" prefWidth="1190.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uap.smartinventorytracker.controller.DashboardController">
+   <children>
+      <Label layoutX="64.0" layoutY="20.0" prefHeight="60.0" prefWidth="229.0" styleClass="title-label" text="Dashboard" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="20.0" />
+      <HBox layoutX="64.0" layoutY="80.0" prefHeight="230.0" prefWidth="974.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="81.0">
+         <children>
+            <AnchorPane prefHeight="180.0" prefWidth="377.0" styleClass="shadow" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+               <children>
+                  <Label layoutX="33.0" layoutY="34.0" styleClass="card-label" text="Barang Masuk" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="19.0" />
+                  <Label fx:id="barangMasuk" layoutX="37.0" layoutY="97.0" styleClass="total-label" text="0 " AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" />
+                  <Label layoutX="76.0" layoutY="85.0" styleClass="total-label" text="Label" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="180.0" prefWidth="377.0" styleClass="shadow">
+               <children>
+                  <Label layoutX="33.0" layoutY="34.0" styleClass="card-label" text="Barang Keluar" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="19.0" />
+                  <Label fx:id="barangKeluar" layoutX="37.0" layoutY="97.0" styleClass="total-label" text="0 " AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" />
+                  <Label layoutX="84.0" layoutY="87.0" styleClass="total-label" text="Label" />
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </AnchorPane>
+            <AnchorPane layoutX="662.0" layoutY="10.0" prefHeight="180.0" prefWidth="377.0" styleClass="shadow">
+               <children>
+                  <Label layoutX="33.0" layoutY="34.0" styleClass="card-label" text="Total Produk" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="19.0" />
+                  <Label fx:id="totalProduk" layoutX="37.0" layoutY="97.0" styleClass="total-label" text="0 " AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" />
+                  <Label layoutX="85.0" layoutY="85.0" styleClass="total-label" text="Label" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <BarChart fx:id="barChart" layoutX="86.0" layoutY="360.0" prefHeight="519.0" prefWidth="453.0" styleClass="shadow" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="651.0" AnchorPane.topAnchor="360.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <PieChart fx:id="pieChart" layoutX="565.0" layoutY="363.0" prefHeight="248.0" prefWidth="554.0" styleClass="shadow" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="363.0" />
+      <LineChart fx:id="lineChart" layoutX="813.0" layoutY="621.0" prefHeight="230.0" prefWidth="554.0" styleClass="shadow" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="71.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>
