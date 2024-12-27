@@ -12,6 +12,12 @@ import javafx.scene.layout.AnchorPane;
 
 import java.text.NumberFormat;
 
+import com.uap.smartinventorytracker.model.Product;
+import com.uap.smartinventorytracker.model.ProductType;
+import com.uap.smartinventorytracker.repository.ProductRepository;
+import com.uap.smartinventorytracker.repository.ProductTransactionRepository;
+import com.uap.smartinventorytracker.repository.ProductTypeRepository;
+
 public class DashboardController {
 
     @FXML
@@ -34,6 +40,10 @@ public class DashboardController {
 
     @FXML
     private Label totalProduk;
+    
+    
+    private final ProductRepository productRepo = new ProductRepository();
+    private final ProductTransactionRepository productTransactionRepo = new ProductTransactionRepository();
 
     // Contoh data dummy (ini akan diganti dengan data dari database)
     private int totalBarang = 150; // Total barang di inventaris
@@ -43,8 +53,8 @@ public class DashboardController {
     @FXML
     public void initialize() {
         NumberFormat numberFormat = NumberFormat.getInstance();
-        totalProduk.setText(numberFormat.format(totalBarang));
-        barangMasuk.setText(numberFormat.format(barangMasukHariIni));
+        totalProduk.setText(numberFormat.format(productRepo.getTotalProductQuantity()));
+        barangMasuk.setText(numberFormat.format(productTransactionRepo.getTotalQuantityByTransactionType("ADD")));
         barangKeluar.setText(numberFormat.format(barangKeluarHariIni));
 
         pieChart.setData(generatePieChartData());

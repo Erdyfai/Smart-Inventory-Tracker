@@ -6,6 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import com.uap.smartinventorytracker.model.Product;
 import com.uap.smartinventorytracker.repository.ProductRepository;
+import com.uap.smartinventorytracker.repository.ProductTransactionRepository;
 import com.uap.smartinventorytracker.repository.ProductTypeRepository;
 import com.uap.smartinventorytracker.util.AlertUtil;
 import com.uap.smartinventorytracker.util.CategoryUtil;
@@ -30,6 +31,8 @@ public class AddProductController {
     private final ProductRepository productRepo = new ProductRepository();
     
     private final ProductTypeRepository productTypeRepo = new ProductTypeRepository();
+    
+    private final ProductTransactionRepository productTransactionRepo = new ProductTransactionRepository();
     
     private InventoryController inventoryController;
 
@@ -65,8 +68,9 @@ public class AddProductController {
 		try {
 			typeId = CategoryUtil.getProductTypeIdByName(category, productTypeRepo.getAllProductTypes());
 			Product newProduct = new Product(productName, quantity, expiryDate, typeId);
-			
+			 
 			 productRepo.addProduct(newProduct); 
+			 productTransactionRepo.addTransaction(typeId, "ADD", quantity);
 			 inventoryController.refreshProductTable();
 	         AlertUtil.showInfo("Berhasil", "Produk berhasil ditambahkan.");
 		} catch (SQLException e) {
